@@ -10,9 +10,9 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
-Login/password
-```
-admin 
+Username is admin and password an be obtained with this command.
+
+``` 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
@@ -22,6 +22,8 @@ We create a mysql app for sterilisation of animals in a pet clinic.
 
 This app is deployed with Argo CD and is made of : 
 *  A mysql deployment 
+*  A PVC 
+*  A secret 
 *  A service to mysql 
 
 We also use a presync hook to backup the whole application with kasten before application sync. 
