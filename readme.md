@@ -25,6 +25,7 @@ This app is deployed with Argo CD and is made of :
 *  A PVC 
 *  A secret 
 *  A service to mysql 
+*  A kasten pre-sync job (with sa and binding) to backup the app before any update 
 
 We also use a presync hook to backup the whole application with kasten before application sync. 
 
