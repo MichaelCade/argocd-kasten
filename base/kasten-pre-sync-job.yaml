@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: kasten-pre-sync-
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      serciceAccountName: kasten-pre-sync
+      containers:
+        image: ghcr.io/kanisterio/kanister-kubectl:1.18
+        command:
+          - sh
+          - -o
+          - errexit
+          - -o
+          - pipefail
+          - -c
+          - |
+            # create a bcakup action on the project 
+            backup_name="mysqlapp-backup-$(date| tr ' ' '-'|tr ':' '-'|tr '[:upper:]' '[:lower:]')"
+            cat <<EOF | oc create -f -
+            apiVersion: actions.kio.kasten.io/v1alpha1
+            kind: BackupAction
+            metadata:  
+              name: $backup_name
+              namespace: $NAMESPACE   
+            spec:
+              filters: {}              
+              subject:
+                name: $NAMESPACE
+                namespace: $NAMESPACE
+            EOF
+          env:          
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace            
+        name: backupper
+      restartPolicy: Never

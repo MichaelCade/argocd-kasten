@@ -73,12 +73,17 @@ When deploying the app with argo cd we can see that a second restore point has b
 
 In the third version of our application we want to remove all the row that have species in the list, for that we use a job that connect to the database and that delete the rows. But we made a mistake in the code and we also delete accidentally other rows. 
 
+Notice that we use the wave 2 to make sure this job is executed after the kasten job.
+
 ```
 cat <<EOF > migration-data-job.yaml 
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: migration-data-job
+  annotations: 
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   template:
     metadata:
