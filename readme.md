@@ -1,8 +1,8 @@
 # Argo CD and kasten 
 
-This is a very simple example of how we can integrate kasten with argo cd. It's volontary kept very simple so that you can 
+This is a very simple example of how we can integrate kasten with argo cd. It's volontary kept very simple be cause we focus on using kasten withing a [pre-sync phase](https://argoproj.github.io/argo-cd/user-guide/sync-waves/) in Argo CD.
 
-## Install argocd
+## Install Argo CD
 
 ```
 kubectl create namespace argocd
@@ -10,13 +10,13 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
-Username is admin and password an be obtained with this command.
+Username is admin and password can be obtained with this command.
 
 ``` 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
-## First version 
+## First version of the application
 
 We create a mysql app for sterilisation of animals in a pet clinic. 
 
@@ -25,9 +25,8 @@ This app is deployed with Argo CD and is made of :
 *  A PVC 
 *  A secret 
 *  A service to mysql 
-*  A kasten pre-sync job (with sa and binding) to backup the app before any update 
 
-We also use a presync hook to backup the whole application with kasten before application sync. 
+We also use a pre-sync job (with corresponding sa and rolebinding)to backup the whole application with kasten before application sync. 
 
 Vets are creating the row of the animal they will operate. 
 
@@ -50,6 +49,8 @@ exit
 exit
 ```
 
+At the first sync an empty restore point should be created.
+
 ## Second version 
 
 We create a config map that contains the list of species that won't be elligible for sterilisation. This was decided based on the experience of this clinic, operation on this species are too expansive. We can see here a link between the configuration and the data. It's very important that configuration and data are captured together.
@@ -68,13 +69,13 @@ git commit -c "Adding forbidden species"
 git push
 ```
 
-When deploying the app with argo cd we can see that a second restore point has been created
+When deploying the app with Argo Cd we can see that a second restore point has been created
 
 ## Third version 
 
 In the third version of our application we want to remove all the row that have species in the list, for that we use a job that connect to the database and that delete the rows. But we made a mistake in the code and we also delete accidentally other rows. 
 
-Notice that we use the wave 2 to make sure this job is executed after the kasten job.
+Notice that we use the wave 2 `argocd.argoproj.io/sync-wave: "2"` to make sure this job is executed after the kasten job.
 
 ```
 cat <<EOF > migration-data-job.yaml 
