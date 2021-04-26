@@ -10,7 +10,7 @@ spec:
     metadata:
       creationTimestamp: null
     spec:
-      serciceAccountName: kasten-pre-sync
+      serviceAccountName: kasten-pre-sync
       containers:
        - image: ghcr.io/kanisterio/kanister-kubectl:1.18
          command:
