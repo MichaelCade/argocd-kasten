@@ -59,7 +59,7 @@ We create a config map that contains the list of species that won't be elligible
 cat <<EOF > forbidden-species-cm.yaml 
 apiVersion: v1
 data:
-  species: crocodile,hamster
+  species: "('crocodile','hamster')"
 kind: ConfigMap
 metadata:
   name: forbidden-species
@@ -97,7 +97,7 @@ spec:
         - -c
         - |
           #!/bin/bash
-          # Oh no !! I forgot to the "where species in '${SPECIES}'" clause in the delete command :(
+          # Oh no !! I forgot to the "where species in ${SPECIES}" clause in the delete command :(
           mysql -h mysql -p${MYSQL_ROOT_PASSWORD} -uroot -Bse "delete from test.pets" 
         env:
         - name: MYSQL_ROOT_PASSWORD
