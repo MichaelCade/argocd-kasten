@@ -59,7 +59,7 @@ We create a config map that contains the list of species that won't be elligible
 cat <<EOF > forbidden-species-cm.yaml 
 apiVersion: v1
 data:
-  species: crocodile,hamster
+  species: "('crocodile','hamster')"
 kind: ConfigMap
 metadata:
   name: forbidden-species
