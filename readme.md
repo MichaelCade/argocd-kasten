@@ -68,7 +68,7 @@ metadata:
   name: forbidden-species
 EOF 
 git add forbidden-species-cm.yaml
-git commit -c "Adding forbidden species" 
+git commit -m "Adding forbidden species" 
 git push
 ```
 
@@ -120,7 +120,7 @@ spec:
       restartPolicy: Never
 EOF 
 git add migration-data-job.yaml
-git commit -c "migrate the data to remove the forbidden species from the database, oh no I made a mistake, that will remove all the species !!" 
+git commit -m "migrate the data to remove the forbidden species from the database, oh no I made a mistake, that will remove all the species !!" 
 git push
 ```
 ## Phase 5 - The Recovery
@@ -171,7 +171,7 @@ spec:
       restartPolicy: Never
 EOF 
 git add migration-data-job.yaml
-git commit -c "migrate the data to remove the forbidden species from the database, oh no I made a mistake, that will remove all the species !!" 
+git commit -m "migrate the data to remove the forbidden species from the database, oh no I made a mistake, that will remove all the species !!" 
 git push
 ```
 
