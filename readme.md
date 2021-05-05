@@ -1,4 +1,5 @@
-# Argo CD and kasten 
+# Argo CD and Kasten K10
+# Incorporating data management into your Continuous Deployment workflows and GitOps model
 
 This is a very simple example of how we can integrate kasten with argo cd. It's voluntary kept very simple because we focus on using kasten with a [pre-sync phase](https://argoproj.github.io/argo-cd/user-guide/sync-waves/) in Argo CD.
 
