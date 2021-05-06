@@ -36,7 +36,7 @@ spec:
                  namespace: $NAMESPACE
              EOF
             
-             # Wait until the backucp action is complete 
+             # Wait until the backup action is complete 
              count=30
              delay=3
              total_time=$((count*delay))
