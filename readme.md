@@ -125,6 +125,8 @@ git add migration-data-job.yaml
 git commit -m "migrate the data to remove the forbidden species from the database, oh no I made a mistake, that will remove all the species !!" 
 git push
 ```
+now head on back to ArgoCD and sync again and see what damage it has done to our database. 
+
 Lets now take a look at the database state after making the mistake 
 
 ```
