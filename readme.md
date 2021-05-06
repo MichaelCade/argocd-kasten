@@ -123,6 +123,17 @@ git add migration-data-job.yaml
 git commit -m "migrate the data to remove the forbidden species from the database, oh no I made a mistake, that will remove all the species !!" 
 git push
 ```
+Lets now take a look at the database state after making the mistake 
+
+```
+mysql_pod=$(kubectl get po -n mysql -l app=mysql -o jsonpath='{.items[*].metadata.name}')
+kubectl exec -ti $mysql_pod -n mysql -- bash
+mysql --user=root --password=ultrasecurepassword
+USE test;
+SELECT * FROM pets;
+```
+
+
 ## Phase 5 - The Recovery
 At this stage we could roll back our ArgoCD to our previous version, prior to Phase 4 but you will notice that this just brings back our configuration and it is not going to bring back our data! 
 
@@ -173,6 +184,16 @@ EOF
 git add migration-data-job.yaml
 git commit -m "migrate the data to remove the forbidden species from the database, oh no I made a mistake, that will remove all the species !!" 
 git push
+```
+
+Lets now take a look at the database state and make sure we now have the desired outcome.
+
+```
+mysql_pod=$(kubectl get po -n mysql -l app=mysql -o jsonpath='{.items[*].metadata.name}')
+kubectl exec -ti $mysql_pod -n mysql -- bash
+mysql --user=root --password=ultrasecurepassword
+USE test;
+SELECT * FROM pets;
 ```
 
 At this stage you will have your desired data in your database but peace of mind that you have a way of recovering if this accident happens again. 
