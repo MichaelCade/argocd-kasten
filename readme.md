@@ -202,7 +202,7 @@ SELECT * FROM pets;
 
 At this stage you will have your desired data in your database but peace of mind that you have a way of recovering if this accident happens again. 
 
-##Clean Up
+## Clean Up
 If you are using this as a demo then you may now want to clean up your environment to run this multiple times. You can do this by following the next steps. 
 
 Delete App from ArgoCD in the UI - There will also be a way to remove from ArgoCLI but I have not had chance to find this yet.  
