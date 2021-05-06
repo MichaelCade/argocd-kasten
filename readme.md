@@ -205,10 +205,15 @@ At this stage you will have your desired data in your database but peace of mind
 ##Clean Up
 If you are using this as a demo then you may now want to clean up your environment to run this multiple times. You can do this by following the next steps. 
 
-Delete App from ArgoCD in the UI 
+Delete App from ArgoCD in the UI - There will also be a way to remove from ArgoCLI but I have not had chance to find this yet.  
 
 Delete namespace 
+
+```
 kubectl delete namespace mysql
+```
 
 Delete rolebinding 
+```
 kubectl delete rolebinding pre-sync-k10-basic 
+```
