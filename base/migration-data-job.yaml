@@ -16,8 +16,8 @@ spec:
         - -c
         - |
           #!/bin/bash
-          # Oh no !! I forgot to the "where species in " clause in the delete command :(
-          mysql -h mysql -p -uroot -Bse "delete from test.pets" 
+          # Oh no !! I forgot to the "where species in ${SPECIES}" clause in the delete command :(
+          mysql -h mysql -p${MYSQL_ROOT_PASSWORD} -uroot -Bse "delete from test.pets" 
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
@@ -32,3 +32,4 @@ spec:
         image: docker.io/bitnami/mysql:8.0.23-debian-10-r0
         name: data-job
       restartPolicy: Never
+EOF
