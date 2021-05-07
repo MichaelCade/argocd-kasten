@@ -147,6 +147,16 @@ Fortunately we can use kasten to restore the data using the restore point.
 
 You will see from the above now when we check the database our data is gone! It was lucky that we have this presync enabled to take those backups prior to any code changes. We can now use that restore point to bring back our data. 
 
+Lets now take a look at the database state after recovery 
+
+```
+mysql_pod=$(kubectl get po -n mysql -l app=mysql -o jsonpath='{.items[*].metadata.name}')
+kubectl exec -ti $mysql_pod -n mysql -- bash
+mysql --user=root --password=ultrasecurepassword
+USE test;
+SELECT * FROM pets;
+```
+
 ## Phase 6 - Making things right 
 We have rectified our mistake in the code and would like to correctly implement this now into our application. 
 
