@@ -21,6 +21,8 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 ## Phase 1 - Deploying the Application 
 
+First let us confirm that we do not have a namespace called mysql as this will be created within ArgoCD
+
 We create a mysql app for sterilisation of animals in a pet clinic. 
 
 This app is deployed with Argo CD and is made of : 
