@@ -52,7 +52,8 @@ INSERT INTO pets VALUES ('Sophie','Meg','giraffe','f','2021-05-30',NULL);
 INSERT INTO pets VALUES ('Sam','Diane','snake','m','2021-05-30',NULL);
 INSERT INTO pets VALUES ('Medor','Meg','dog','m','2021-05-30',NULL);
 INSERT INTO pets VALUES ('Felix','Diane','cat','m','2021-05-30',NULL);
-INSERT INTO pets VALUES ('Joe','Diane','crocodile','f','2021-05-30',NULL);
+INSERT INTO pets VALUES ('Joe','Diane','crocodile','f','1984-05-30',NULL);
+INSERT INTO pets VALUES ('Vanny','Veeam Vanguards','vulture','m','2019-05-30',NULL);
 SELECT * FROM pets;
 exit
 exit
