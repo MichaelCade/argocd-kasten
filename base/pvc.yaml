@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql  
 spec:
+  storageClassName: managed-csi
   accessModes:
     - ReadWriteOnce
   resources:
