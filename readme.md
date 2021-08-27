@@ -1,6 +1,8 @@
 # Argo CD and Kasten K10
 # Incorporating data management into your Continuous Deployment workflows and GitOps model
 
+testing
+
 This walkthrough assumes that you have Kasten K10 deployed within your Kubernetes Cluster to perform these steps. More details on this can be found at https://docs.kasten.io/latest/index.html 
 
 This is a very simple example of how we can integrate Kasten K10 with ArgoCD. It's voluntary kept very simple because we focus on using kasten with a [pre-sync phase](https://argoproj.github.io/argo-cd/user-guide/sync-waves/) in ArgoCD.
