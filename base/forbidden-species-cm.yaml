@@ -1,6 +1,0 @@
-apiVersion: v1
-data:
-  species: "('crocodile','hamster')"
-kind: ConfigMap
-metadata:
-  name: forbidden-species
