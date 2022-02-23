@@ -17,6 +17,7 @@ spec:
         - |
           #!/bin/bash
           # Oh no !! I forgot to the "where species in ${SPECIES}" clause in the delete command :(
+          mysql --user=root --password=ultrasecurepassword
           mysql -h mysql -p\${MYSQL_ROOT_PASSWORD} -uroot -Bse "delete from test.pets"
         env:
         - name: MYSQL_ROOT_PASSWORD
