@@ -32,6 +32,8 @@ This app is deployed with Argo CD and is made of :
 *  A secret 
 *  A service to mysql 
 
+This is the URL required for ArgoCD - https://github.com/MichaelCade/argocd-kasten.git
+
 We also use a pre-sync job (with corresponding sa and rolebinding)to backup the whole application with kasten before application sync. 
 
 At the first sync an empty restore point should be created.
