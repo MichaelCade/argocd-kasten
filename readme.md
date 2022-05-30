@@ -32,6 +32,8 @@ TOKEN=$(kubectl get secret --namespace kasten-io $TOKEN_NAME -o jsonpath="{.data
 echo "Token value: "
 echo $TOKEN
 
+kubectl --namespace kasten-io port-forward service/gateway 8080:8000
+
 ```
 
 ## Install ArgoCD
