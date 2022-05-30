@@ -5,7 +5,35 @@ This walkthrough assumes that you have Kasten K10 deployed within your Kubernete
 
 This is a very simple example of how we can integrate Kasten K10 with ArgoCD. It's voluntary kept very simple because we focus on using kasten with a [pre-sync phase](https://argoproj.github.io/argo-cd/user-guide/sync-waves/) in ArgoCD.
 
-test again
+## PreReqs 
+
+Deploy minikube cluster
+
+```
+minikube start --addons volumesnapshots,csi-hostpath-driver --apiserver-port=6443 --container-runtime=containerd -p vbr-demo --kubernetes-version=1.21.2
+```
+
+Deploy Kasten K10
+
+```
+kubectl annotate volumesnapshotclass csi-hostpath-snapclass \
+    k10.kasten.io/is-snapshot-class=true
+
+kubectl create namespace kasten-io
+helm install k10 kasten/k10 --namespace=kasten-io --set auth.tokenAuth.enabled=true --set injectKanisterSidecar.enabled=true --set-string injectKanisterSidecar.namespaceSelector.matchLabels.k10/injectKanisterSidecar=true
+
+kubectl patch storageclass csi-hostpath-sc -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+
+TOKEN_NAME=$(kubectl get secret --namespace kasten-io|grep k10-k10-token | cut -d " " -f 1)
+TOKEN=$(kubectl get secret --namespace kasten-io $TOKEN_NAME -o jsonpath="{.data.token}" | base64 --decode)
+
+echo "Token value: "
+echo $TOKEN
+
+```
+
 ## Install ArgoCD
 
 ```
