@@ -41,7 +41,7 @@ kubectl --namespace kasten-io port-forward service/gateway 8080:8000
 ```
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+kubectl port-forward svc/argocd-server -n argocd 9090:443
 ```
 
 Username is admin and password can be obtained with this command.
