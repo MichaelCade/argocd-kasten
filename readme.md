@@ -10,7 +10,7 @@ This is a very simple example of how we can integrate Kasten K10 with ArgoCD. It
 Deploy minikube cluster
 
 ```
-minikube start --addons volumesnapshots,csi-hostpath-driver --apiserver-port=6443 --container-runtime=containerd -p vbr-demo --kubernetes-version=1.21.2
+minikube start --addons volumesnapshots,csi-hostpath-driver --apiserver-port=6443 --container-runtime=containerd -p nicconf-demo --kubernetes-version=1.21.2
 ```
 
 Deploy Kasten K10
@@ -19,8 +19,7 @@ Deploy Kasten K10
 kubectl annotate volumesnapshotclass csi-hostpath-snapclass \
     k10.kasten.io/is-snapshot-class=true
 
-kubectl create namespace kasten-io
-helm install k10 kasten/k10 --namespace=kasten-io --set auth.tokenAuth.enabled=true --set injectKanisterSidecar.enabled=true --set-string injectKanisterSidecar.namespaceSelector.matchLabels.k10/injectKanisterSidecar=true
+helm install k10 kasten/k10 --namespace=kasten-io --create-namespace --set auth.tokenAuth.enabled=true --set injectKanisterSidecar.enabled=true --set-string injectKanisterSidecar.namespaceSelector.matchLabels.k10/injectKanisterSidecar=true
 
 kubectl patch storageclass csi-hostpath-sc -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
